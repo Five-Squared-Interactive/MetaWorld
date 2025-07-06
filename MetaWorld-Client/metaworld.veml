@@ -170,6 +170,18 @@
               </transform>
 		    </entity>
 		</entity>
+		<entity xsi:type="buttonentity" tag="Camera" on-click-event="MW_UI_ViewMenu_ToggleCameraMode();">
+          <transform xsi:type="canvastransform">
+	        <position-percent x="0.92" y="0.32"></position-percent>
+		    <size-percent x="0.1" y="0.07"></size-percent>
+          </transform>
+		  <entity xsi:type="textentity" tag="CameraText" font-size="14" text="Camera: Third Person">
+              <transform xsi:type="canvastransform">
+	            <position-percent x="0.5" y="0.5"></position-percent>
+		        <size-percent x="1" y="1"></size-percent>
+              </transform>
+		    </entity>
+		</entity>
 		<entity xsi:type="textentity" tag="SpeedLabel" font-size="18" text="Speed:">
 			<transform xsi:type="canvastransform">
 			<position-percent x="0.84" y="0.355"></position-percent>
