@@ -64,7 +64,8 @@ function MW_Input_EnvMod_HandleLeftPress() {
     else if (interactionMode == "SLEDGE-HAMMER") {
         if (hitInfo != null) {
             if (hitInfo.entity != null) {
-                if (hitInfo.entity instanceof MeshEntity) {
+                if (hitInfo.entity instanceof MeshEntity ||
+                    hitInfo.entity instanceof AutomobileEntity || hitInfo.entity instanceof AirplaneEntity) {
                     MW_Input_EnvMod_DeleteEntity(hitInfo.entity);
                 }
             }
@@ -413,7 +414,8 @@ function MW_Input_EnvMod_HandleTriggerPress() {
     else if (interactionMode == "SLEDGE-HAMMER") {
         if (hitInfo != null) {
             if (hitInfo.entity != null) {
-                if (hitInfo.entity instanceof MeshEntity) {
+                if (hitInfo.entity instanceof MeshEntity ||
+                    hitInfo.entity instanceof AutomobileEntity || hitInfo.entity instanceof AirplaneEntity) {
                     MW_Input_EnvMod_DeleteEntity(hitInfo.entity);
                 }
             }
@@ -821,5 +823,5 @@ function MW_Input_EnvMod_PlaceCharacterInAutomobile(automobileEntity) {
 }
 
 function MW_Input_EnvMod_PlaceCharacterInAirplane(airplaneEntity) {
-
+    MW_Player_ThirdPerson_PlaceCharacterInAirplaneEntity(airplaneEntity);
 }
