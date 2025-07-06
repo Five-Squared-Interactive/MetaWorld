@@ -646,6 +646,7 @@ function MW_Player_ThirdPerson_SetCameraMode(mode) {
 function MW_Player_ThirdPerson_GetCameraMode() {
     var context = Context.GetContext("THIRD_PERSON_CHARACTER_CONTROLLER");
     return context.cameraMode;
+}
 
 function MW_Player_ThirdPerson_ExitVehicle() {
     var context = Context.GetContext("THIRD_PERSON_CHARACTER_CONTROLLER");
