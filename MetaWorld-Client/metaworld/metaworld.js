@@ -15,6 +15,7 @@ let worldURI = null;
 let userID = null;
 let userTag = null;
 let token = null;
+let tokenExpiration = null;
 let interfaceMode = null;
 let runtimeMode = null;
 let thirdPersonCharacterModel = null;
@@ -26,8 +27,8 @@ let startPos = Vector3.zero;
 
 function HandleQueryParams() {
     worldURI = World.GetQueryParam("world_uri");
-    userTag = World.GetQueryParam("user_tag");
-    userID = World.GetQueryParam("user_id");
+    //userTag = World.GetQueryParam("user_tag");
+    //userID = World.GetQueryParam("user_id");
     interfaceMode = World.GetQueryParam("IF_MODE");
     if (interfaceMode === "desktop") {
         
@@ -95,7 +96,7 @@ function HandleQueryParams() {
     if (startXArg != null && startYArg != null && startZArg != null) {
         startPos = new Vector3(parseFloat(startXArg), parseFloat(startYArg), parseFloat(startZArg));
     }
-    token = World.GetQueryParam("token");
+    //token = World.GetQueryParam("token");
 }
 
 function InitializeModules() {
@@ -157,5 +158,75 @@ function ConnectToGlobalSynchronizer() {
         PerformPostSynchronizerConnectActions, PerformPostSessionJoinedActions);
 }
 
+function FinishLoginPanelSetup() {
+    var loginContext = Context.GetContext("LOGIN_CONTEXT");
+    var loginPanel = Entity.Get(WorldStorage.GetItem("LOGIN-PANEL-ID"));
+
+    if (loginPanel == null) {
+        Logging.Log("Login Panel not found. Cannot finish setup.");
+        return;
+    }
+
+    loginPanel.SetInteractionState(InteractionState.Static);
+    loginPanel.LoadFromURL('https://dylanworld.webverse.info:3000/userlogin');
+
+    Context.DefineContext("LOGIN_CONTEXT", loginContext);
+}
+
+function HandleUserLoginMessage(message) {
+    if (msg.startsWith("WHID.AUTH.COMPLETE")) {
+        var rawMsgParams = msg.substring(msg.indexOf("(") + 1, msg.indexOf(")"));
+        if (rawMsgParams == null) {
+            Logging.LogError("HandleUserLoginMessage: Invalid Authentication Complete message received.");
+            return;
+        }
+
+        var msgParams = rawMsgParams.split(",");
+        if (msgParams.length != 3) {
+            Logging.LogError("HandleToolbarMessage: Invalid Authentication Complete message received.");
+            return;
+        }
+        
+        var mwTopLevelContext = Context.GetContext("MW_TOP_LEVEL_CONTEXT");
+        if (mwTopLevelContext == null) {
+            Logging.LogError("MW_TOP_LEVEL_CONTEXT not found. Cannot handle user login message.");
+            return;
+        }
+
+        mwTopLevelContext.userID = msgParams[0];
+        mwTopLevelContext.userTag = msgParams[1];
+        mwTopLevelContext.token = msgParams[2];
+        mwTopLevelContext.tokenExpiration = msgParams[3];
+
+        InitializeModules();
+    }
+}
+
+function FinishLoginCanvasSetup() {
+    var loginContext = Context.GetContext("LOGIN_CONTEXT");
+
+    var loginCanvas = Entity.Get(WorldStorage.GetItem("TOOLBAR-CANVAS-ID"));
+    loginCanvas.SetInteractionState(InteractionState.Static);
+        toolbarCanvas.MakeScreenCanvas();
+    var loginPanel = HTMLEntity.Create(loginCanvas, new Vector2(0, 0), new Vector2(1, 1),
+        null, "UserLoginPanel", "HandleUserLoginMessage", "FinishUserLoginPanelCreation");
+    
+    Context.DefineContext("LOGIN_CONTEXT", loginContext);
+}
+
+function StartUserLogin() {
+    Logging.Log("Starting User Login...");
+
+    var loginContext = {};
+    WorldStorage.SetItem("LOGIN-CANVAS-ID", UUID.NewUUID().ToString());
+
+    loginContext.loginCanvas = CanvasEntity.Create(null, Vector3.zero, Quaternion.identity,
+        Vector3.one, false, WorldStorage.GetItem("LOGIN-CANVAS-ID"), "LoginCanvas", "FinishLoginCanvasSetup");
+    
+    Context.DefineContext("LOGIN_CONTEXT", loginContext);
+}
+
 HandleQueryParams();
-InitializeModules();
+Context.DefineContext("MW_TOP_LEVEL_CONTEXT", this);
+
+StartUserLogin();

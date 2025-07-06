@@ -69,18 +69,18 @@
     <background>
       <color>gray</color>
     </background>
-    <entity xsi:type="canvasentity" tag="WASDControls">
+    <entity xsi:type="canvas" tag="WASDControls">
         <transform xsi:type="scaletransform">
           <position x="0" y="0" z="0"></position>
           <rotation x="1" y="1" z="0" w="1"></rotation>
           <scale x="1" y="1" z="1"></scale>
         </transform>
-        <entity xsi:type="buttonentity" tag="Up" on-click-event="MW_Player_ThirdPerson_MoveCharacterOneStep(1, 0);">
+        <entity xsi:type="button" tag="Up" on-click-event="MW_Player_ThirdPerson_MoveCharacterOneStep(1, 0);">
           <transform xsi:type="canvastransform">
 	        <position-percent x="0.17" y="0.64"></position-percent>
 		    <size-percent x="0.1" y="0.1"></size-percent>
           </transform>
-		  <entity xsi:type="imageentity" tag="UpImage">
+		  <entity xsi:type="image" tag="UpImage">
 			<image-file>metaworld/modules/ui/view_menu/Images/arrow_up.png</image-file>
 			<transform xsi:type="canvastransform">
 				<position-percent x="0.5" y="0.5"></position-percent>
@@ -88,12 +88,12 @@
 			</transform>
 		  </entity>
 		</entity>
-		<entity xsi:type="buttonentity" tag="Down" on-click-event="MW_Player_ThirdPerson_MoveCharacterOneStep(-1, 0);">
+		<entity xsi:type="button" tag="Down" on-click-event="MW_Player_ThirdPerson_MoveCharacterOneStep(-1, 0);">
           <transform xsi:type="canvastransform">
 	        <position-percent x="0.17" y="0.88"></position-percent>
 		    <size-percent x="0.1" y="0.1"></size-percent>
           </transform>
-		  <entity xsi:type="imageentity" tag="DownImage">
+		  <entity xsi:type="image" tag="DownImage">
 			<image-file>metaworld/modules/ui/view_menu/Images/arrow_down.png</image-file>
 			<transform xsi:type="canvastransform">
 				<position-percent x="0.5" y="0.5"></position-percent>
@@ -101,12 +101,12 @@
 			</transform>
 		  </entity>
 		</entity>
-		<entity xsi:type="buttonentity" tag="Left" on-click-event="MW_Player_ThirdPerson_MoveCharacterOneStep(0, 1);">
+		<entity xsi:type="button" tag="Left" on-click-event="MW_Player_ThirdPerson_MoveCharacterOneStep(0, 1);">
           <transform xsi:type="canvastransform">
 	        <position-percent x="0.07" y="0.76"></position-percent>
 		    <size-percent x="0.1" y="0.1"></size-percent>
           </transform>
-		  <entity xsi:type="imageentity" tag="LeftImage">
+		  <entity xsi:type="image" tag="LeftImage">
 			<image-file>metaworld/modules/ui/view_menu/Images/arrow_left.png</image-file>
 			<transform xsi:type="canvastransform">
 				<position-percent x="0.5" y="0.5"></position-percent>
@@ -114,12 +114,12 @@
 			</transform>
 		  </entity>
 		</entity>
-		<entity xsi:type="buttonentity" tag="Right" on-click-event="MW_Player_ThirdPerson_MoveCharacterOneStep(0, -1);">
+		<entity xsi:type="button" tag="Right" on-click-event="MW_Player_ThirdPerson_MoveCharacterOneStep(0, -1);">
           <transform xsi:type="canvastransform">
 	        <position-percent x="0.27" y="0.76"></position-percent>
 		    <size-percent x="0.1" y="0.1"></size-percent>
           </transform>
-		  <entity xsi:type="imageentity" tag="RightImage">
+		  <entity xsi:type="image" tag="RightImage">
 			<image-file>metaworld/modules/ui/view_menu/Images/arrow_right.png</image-file>
 			<transform xsi:type="canvastransform">
 				<position-percent x="0.5" y="0.5"></position-percent>
@@ -127,24 +127,24 @@
 			</transform>
 		  </entity>
 		</entity>
-		<entity xsi:type="buttonentity" tag="Jump" on-click-event="MW_Player_ThirdPerson_LiftCharacterOneStep();">
+		<entity xsi:type="button" tag="Jump" on-click-event="MW_Player_ThirdPerson_LiftCharacterOneStep();">
           <transform xsi:type="canvastransform">
 	        <position-percent x="0.92" y="0.76"></position-percent>
 		    <size-percent x="0.1" y="0.1"></size-percent>
           </transform>
-		  <entity xsi:type="textentity" tag="JumpText" font-size="14" text="Jump">
+		  <entity xsi:type="text" tag="JumpText" font-size="14" text="Jump">
               <transform xsi:type="canvastransform">
 	            <position-percent x="0.5" y="0.5"></position-percent>
 		        <size-percent x="1" y="1"></size-percent>
               </transform>
 		    </entity>
 		</entity>
-		<entity xsi:type="buttonentity" tag="Drop" on-click-event="MW_Player_ThirdPerson_DropCharacterOneStep();">
+		<entity xsi:type="button" tag="Drop" on-click-event="MW_Player_ThirdPerson_DropCharacterOneStep();">
           <transform xsi:type="canvastransform">
 	        <position-percent x="0.92" y="0.88"></position-percent>
 		    <size-percent x="0.1" y="0.1"></size-percent>
           </transform>
-		  <entity xsi:type="textentity" tag="DropText" font-size="14" text="Drop">
+		  <entity xsi:type="text" tag="DropText" font-size="14" text="Drop">
               <transform xsi:type="canvastransform">
 	            <position-percent x="0.5" y="0.5"></position-percent>
 		        <size-percent x="1" y="1"></size-percent>
@@ -152,54 +152,66 @@
 		    </entity>
 		</entity>
     </entity>
-    <entity xsi:type="canvasentity" tag="ViewMenu">
+    <entity xsi:type="canvas" tag="ViewMenu">
         <transform xsi:type="scaletransform">
           <position x="0" y="0" z="0"></position>
           <rotation x="1" y="1" z="0" w="1"></rotation>
           <scale x="1" y="1" z="1"></scale>
         </transform>
-		<entity xsi:type="buttonentity" tag="View" on-click-event="MW_UI_ViewMenu_ToggleView();">
+		<entity xsi:type="button" tag="View" on-click-event="MW_UI_ViewMenu_ToggleView();">
           <transform xsi:type="canvastransform">
 	        <position-percent x="0.92" y="0.25"></position-percent>
 		    <size-percent x="0.1" y="0.07"></size-percent>
           </transform>
-		  <entity xsi:type="textentity" tag="ViewText" font-size="14" text="View: unset">
+		  <entity xsi:type="text" tag="ViewText" font-size="14" text="View: unset">
               <transform xsi:type="canvastransform">
 	            <position-percent x="0.5" y="0.5"></position-percent>
 		        <size-percent x="1" y="1"></size-percent>
               </transform>
 		    </entity>
 		</entity>
-		<entity xsi:type="textentity" tag="SpeedLabel" font-size="18" text="Speed:">
+		<entity xsi:type="button" tag="Camera" on-click-event="MW_UI_ViewMenu_ToggleCameraMode();">
+          <transform xsi:type="canvastransform">
+	        <position-percent x="0.92" y="0.35"></position-percent>
+		    <size-percent x="0.1" y="0.07"></size-percent>
+          </transform>
+		  <entity xsi:type="text" tag="CameraText" font-size="14" text="Camera: Third Person">
+              <transform xsi:type="canvastransform">
+	            <position-percent x="0.5" y="0.5"></position-percent>
+		        <size-percent x="1" y="1"></size-percent>
+              </transform>
+		    </entity>
+		</entity>
+		<entity xsi:type="text" tag="SpeedLabel" font-size="18" text="Speed:">
 			<transform xsi:type="canvastransform">
-			<position-percent x="0.84" y="0.355"></position-percent>
+			<position-percent x="0.84" y="0.455"></position-percent>
 			<size-percent x="0.1" y="0.07"></size-percent>
 		  </transform>
 		</entity>
-		<entity xsi:type="buttonentity" tag="DecreaseSpeed" on-click-event="MW_UI_ViewMenu_DecreaseSpeed();">
+		<entity xsi:type="button" tag="DecreaseSpeed" on-click-event="MW_UI_ViewMenu_DecreaseSpeed();">
           <transform xsi:type="canvastransform">
-	        <position-percent x="0.88" y="0.35"></position-percent>
+	        <position-percent x="0.88" y="0.45"></position-percent>
 		    <size-percent x="0.025" y="0.05"></size-percent>
           </transform>
-		  <entity xsi:type="textentity" tag="DecreaseSpeedText" font-size="25" text="-">
+		  <entity xsi:type="text" tag="DecreaseSpeedText" font-size="25" text="-">
 			<transform xsi:type="canvastransform">
 			<position-percent x="0.5" y="0.5"></position-percent>
 			<size-percent x="1" y="1"></size-percent>
 			</transform>
 		  </entity>
 		</entity>
-		<entity xsi:type="textentity" tag="SpeedText" font-size="20" text="1">
+		<entity xsi:type="text" tag="SpeedText" font-size="20" text="1">
 			<transform xsi:type="canvastransform">
-			<position-percent x="0.93" y="0.35"></position-percent>
+			<position-percent x="0.93" y="0.45"></position-percent>
 			<size-percent x="0.05" y="0.05"></size-percent>
 		  </transform>
 		</entity>
-		<entity xsi:type="buttonentity" tag="IncreaseSpeed" on-click-event="MW_UI_ViewMenu_IncreaseSpeed();">
+		<entity xsi:type="button" tag="IncreaseSpeed" on-click-event="MW_UI_ViewMenu_IncreaseSpeed();">
           <transform xsi:type="canvastransform">
-	        <position-percent x="0.955" y="0.35"></position-percent>
+	        <position-percent x="0.955" y="0.45"></position-percent>
 		    <size-percent x="0.025" y="0.05"></size-percent>
           </transform>
-		  <entity xsi:type="textentity" tag="IncreaseSpeedText" font-size="25" text="+">
+		  <entity xsi:type="text" tag="IncreaseSpeedText" font-size="25" text="+">
 			<transform xsi:type="canvastransform">
 			<position-percent x="0.5" y="0.5"></position-percent>
 			<size-percent x="1" y="1"></size-percent>
