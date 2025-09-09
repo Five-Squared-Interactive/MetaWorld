@@ -429,7 +429,7 @@ function MW_Rend_EnsureRegionsAreLoaded(centerRegionIdx) {
         return;
     }
 
-    if (worldRenderingModule.terrainTiles[centerRegionIdx.x + "." + (centerRegionIdx.y + 1)] == null) {
+    /*if (worldRenderingModule.terrainTiles[centerRegionIdx.x + "." + (centerRegionIdx.y + 1)] == null) {
         MW_Rend_LoadRegion(new Vector2Int(centerRegionIdx.x, centerRegionIdx.y + 1));
         return;
     }
@@ -442,32 +442,7 @@ function MW_Rend_EnsureRegionsAreLoaded(centerRegionIdx) {
     if (worldRenderingModule.terrainTiles[(centerRegionIdx.x + 1) + "." + (centerRegionIdx.y + 1)] == null) {
         MW_Rend_LoadRegion(new Vector2Int(centerRegionIdx.x + 1, centerRegionIdx.y + 1));
         return;
-    }
-
-    if (worldRenderingModule.terrainTiles[centerRegionIdx.x + "." + (centerRegionIdx.y - 1)] == null) {
-        MW_Rend_LoadRegion(new Vector2Int(centerRegionIdx.x, centerRegionIdx.y - 1));
-        return;
-    }
-
-    if (worldRenderingModule.terrainTiles[(centerRegionIdx.x - 1) + "." + centerRegionIdx.y] == null) {
-        MW_Rend_LoadRegion(new Vector2Int(centerRegionIdx.x - 1, centerRegionIdx.y));
-        return;
-    }
-
-    if (worldRenderingModule.terrainTiles[(centerRegionIdx.x - 1) + "." + (centerRegionIdx.y - 1)] == null) {
-        MW_Rend_LoadRegion(new Vector2Int(centerRegionIdx.x - 1, centerRegionIdx.y - 1));
-        return;
-    }
-
-    if (worldRenderingModule.terrainTiles[(centerRegionIdx.x - 1) + "." + (centerRegionIdx.y + 1)] == null) {
-        MW_Rend_LoadRegion(new Vector2Int(centerRegionIdx.x - 1, centerRegionIdx.y + 1));
-        return;
-    }
-
-    if (worldRenderingModule.terrainTiles[(centerRegionIdx.x + 1) + "." + (centerRegionIdx.y - 1)] == null) {
-        MW_Rend_LoadRegion(new Vector2Int(centerRegionIdx.x + 1, centerRegionIdx.y - 1));
-        return;
-    }
+    }*/
 }
 
 function MW_Rend_UnloadUnnecessaryRegions(centerRegionIdx) {

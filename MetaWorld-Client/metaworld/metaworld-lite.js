@@ -55,8 +55,7 @@ function HandleQueryParams() {
         Logging.Log("Runtime Mode not set or invalid. Defaulting to webgl.");
         tlc.runtimeMode = "webgl";
     }
-    //tlc.thirdPersonCharacterModel = `https://id.worldhub.me:35525/get-user-avatar/${tlc.userID}`;//World.GetQueryParam("AVATAR_MODEL");
-Logging.Log("tpcm " + tlc.thirdPersonCharacterModel);
+    tlc.thirdPersonCharacterModel = World.GetQueryParam("AVATAR_MODEL");
     var thirdPersonCharacterOffsetX = World.GetQueryParam("AVATAR_OFFSET_X");
     var thirdPersonCharacterOffsetY = World.GetQueryParam("AVATAR_OFFSET_Y");
     var thirdPersonCharacterOffsetZ = World.GetQueryParam("AVATAR_OFFSET_Z");
@@ -103,6 +102,11 @@ Logging.Log("tpcm " + tlc.thirdPersonCharacterModel);
 
 function InitializeModules() {
     var tlc = Context.GetContext("MW_TOP_LEVEL_CONTEXT");
+
+    tlc.userID = UUID.NewUUID().ToString();
+    tlc.userTag = "Unregistered";
+
+
     tlc.configurationModule = new ConfigurationModule(tlc.worldURI, PerformPostWorldConfigLoadActions);
     tlc.entityModule = new EntityModule();
     tlc.identityModule = new IdentityModule(tlc.userID, tlc.userTag, tlc.token);
@@ -205,7 +209,8 @@ function HandleUserLoginMessage(message) {
         var loginCanvas = Entity.Get(WorldStorage.GetItem("LOGIN-CANVAS-ID"));
         loginCanvas.SetInteractionState(InteractionState.Hidden);
 
-        GetUserAvatar();
+        HandleQueryParams();
+        InitializeModules();
     }
 }
 
@@ -228,40 +233,11 @@ function StartUserLogin() {
     WorldStorage.SetItem("LOGIN-CANVAS-ID", UUID.NewUUID().ToString());
     WorldStorage.SetItem("LOGIN-PANEL-ID", UUID.NewUUID().ToString());
 
+
     loginContext.loginCanvas = CanvasEntity.Create(null, Vector3.zero, Quaternion.identity,
         Vector3.one, false, WorldStorage.GetItem("LOGIN-CANVAS-ID"), "LoginCanvas", "FinishLoginCanvasSetup");
     
     Context.DefineContext("LOGIN_CONTEXT", loginContext);
-}
-
-function OnUserAvatarInfoReceived(avatarInfo) {
-    var tlc = Context.GetContext("MW_TOP_LEVEL_CONTEXT");
-    if (tlc == null) {
-        Logging.LogError("MW_TOP_LEVEL_CONTEXT not found. Cannot process user avatar.");
-        return;
-    }
-
-    avatarInfoObject = JSON.parse(avatarInfo);
-
-    if (avatarInfoObject != null) {
-        tlc.thirdPersonCharacterModel = `https://id.worldhub.me:35525${avatarInfoObject.modelUrl}`;
-        Context.DefineContext("MW_TOP_LEVEL_CONTEXT", tlc);
-    }
-
-    HandleQueryParams();
-    InitializeModules();
-}
-
-function GetUserAvatar() {
-    Logging.Log("Getting User Avatar...");
-
-    var tlc = Context.GetContext("MW_TOP_LEVEL_CONTEXT");
-    if (tlc == null) {
-        Logging.LogError("MW_TOP_LEVEL_CONTEXT not found. Cannot get user avatar.");
-        return;
-    }
-
-    HTTPNetworking.Fetch(`https://id.worldhub.me:35525/get-user-avatar/${tlc.userID}`, "OnUserAvatarInfoReceived");
 }
 
 Context.DefineContext("MW_TOP_LEVEL_CONTEXT", this);
@@ -269,4 +245,7 @@ Context.DefineContext("MW_TOP_LEVEL_CONTEXT", this);
 MW_UI_ToggleViewMenu();
 MW_Input_Touch_SetTouchControls();
 
-StartUserLogin();
+//StartUserLogin();
+
+HandleQueryParams();
+InitializeModules();

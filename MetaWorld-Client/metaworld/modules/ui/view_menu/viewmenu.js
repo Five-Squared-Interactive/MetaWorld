@@ -7,7 +7,7 @@ class ViewMenu {
         MW_UI_ViewMenu_ToggleView();
         MW_UI_ViewMenu_ToggleFly();
         MW_UI_ViewMenu_ToggleConsole();
-        MW_UI_ToggleViewMenu();
+        //MW_UI_ToggleViewMenu();
 
         Context.DefineContext("VIEW_MENU", this);
 
