@@ -42,6 +42,10 @@ class ThirdPersonCharacterController {
         var savedCameraMode = WorldStorage.GetItem("METAWORLD-CAMERA-MODE");
         this.cameraMode = (savedCameraMode === "first_person") ? "first_person" : "third_person";
         
+        // Initialize camera mode from storage or default to third person
+        var savedCameraMode = WorldStorage.GetItem("METAWORLD-CAMERA-MODE");
+        this.cameraMode = (savedCameraMode === "first_person") ? "first_person" : "third_person";
+        
         this.characterEntityID = null;
         if (id != null)
         {

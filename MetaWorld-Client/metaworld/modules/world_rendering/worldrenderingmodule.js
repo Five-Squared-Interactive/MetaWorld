@@ -135,10 +135,13 @@ function MW_Rend_EnableWater(water) {
 }
 
 function MW_Rend_OnTerrainReceived(terrainInfo) {
+
+    AsyncJSON.Parse(terrainInfo, "HandleTerrainInfo");
+}
+
+function HandleTerrainInfo(terrainInfoObject) {
     var worldRenderingModule = Context.GetContext("WORLD_RENDERING_MODULE");
     var configModule = Context.GetContext("CONFIGURATION_MODULE");
-
-    terrainInfoObject = JSON.parse(terrainInfo);
     
     if (terrainInfoObject == null) {
         Logging.LogError("MW_Rend_OnTerrainReceived: Unable to get terrain info.");
@@ -208,23 +211,10 @@ function MW_Rend_OnTerrainReceived(terrainInfo) {
         //terrainEntityLayerMasks[index] = new TerrainEntityLayerMask(512, 512);
     }
 
-    // Area for optimization: get in correct format to eliminate loop. This is adding bulk of delay.
-    /*var yIdx = 0;
-    var layersObject = terrainInfoObject["base_ground"]["layers"];
-    for (var lyrRow in layersObject) {
-        var xIdx = 0;
-        
-        for (var lyr in layersObject[lyrRow]) {
-            if (terrainEntityLayerMasks[layersObject[lyrRow][lyr]] != null) {
-                terrainEntityLayerMasks[layersObject[lyrRow][lyr]].SetHeight(xIdx, yIdx, 1);
-            }
-            xIdx++;
-        }
-        yIdx++;
-    }*/
+    var rawLayers = JSON.parse(terrainInfoObject["base_ground"]["layers"]);
     idx = 0;
-    for (var lMask in terrainInfoObject["base_ground"]["layers"]) {
-        terrainEntityLayerMasks[idx++] = new TerrainEntityLayerMask(terrainInfoObject["base_ground"]["layers"][lMask]);
+    for (var lMask in rawLayers) {
+        terrainEntityLayerMasks[idx++] = new TerrainEntityLayerMask(rawLayers[lMask]);
     }
 
     layerMasks = new TerrainEntityLayerMaskCollection();
@@ -305,7 +295,7 @@ function MW_Rend_OnTerrainReceived(terrainInfo) {
         modifications.push(mod);
     }
 
-    var terrainEntity = TerrainEntity.CreateHybrid(null, 1024, 1024, 512, terrainInfoObject["base_ground"]["heights"],
+    var terrainEntity = TerrainEntity.CreateHybrid(null, 1024, 1024, 512, JSON.parse(terrainInfoObject["base_ground"]["heights"]),
         terrainEntityLayers, layerMasks, modifications,
         MW_Rend_GetRenderedPositionForWorldPosition(MW_Rend_GetWorldPosForRegionIndex(
             new Vector2Int(terrainInfoObject["region_x"], terrainInfoObject["region_y"]))),
